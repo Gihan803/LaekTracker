@@ -12,6 +12,8 @@ import AddExpense from "./pages/AddExpense";
 import AllExpenses from "./pages/AllExpenses";
 import Profile from "./pages/Profile";
 import Insights from "./pages/Insights";
+import SavedMonths from "./pages/SavedMonths";
+import MonthDetail from "./pages/MonthDetail";
 
 const AppLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -83,6 +85,26 @@ function App() {
           <PrivateRoute>
             <AppLayout>
               <Insights />
+            </AppLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/saved-months"
+        element={
+          <PrivateRoute>
+            <AppLayout>
+              <SavedMonths />
+            </AppLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/saved-months/:id"
+        element={
+          <PrivateRoute>
+            <AppLayout>
+              <MonthDetail />
             </AppLayout>
           </PrivateRoute>
         }

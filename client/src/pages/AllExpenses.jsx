@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import expenseService from "../services/expenseService";
 import ExpenseRow from "../components/ExpenseRow";
 
-const categories = ["All","Food","Transport","Entertainment","Shopping","Bills","Health","Education","Subscriptions","Other"];
+const categories = ["All", "Food", "Transport", "Entertainment", "Shopping", "Bills", "Health", "Education", "Subscriptions", "Other"];
 
 const AllExpenses = () => {
   const [expenses, setExpenses] = useState([]);
@@ -17,7 +17,8 @@ const AllExpenses = () => {
     try {
       const data = await expenseService.getExpenses();
       setExpenses(data);
-    } catch (error) { console.error("Failed to fetch expenses:", error);
+    } catch (error) {
+      console.error("Failed to fetch expenses:", error);
     } finally { setLoading(false); }
   };
 
@@ -51,7 +52,7 @@ const AllExpenses = () => {
           <h1 className="text-2xl font-extrabold text-slate-900">All Expenses</h1>
           <p className="text-sm text-slate-500 mt-1">{expenses.length} total expenses</p>
         </div>
-        <Link to="/add" className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-500 text-white text-sm font-semibold rounded-lg hover:bg-emerald-600 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-150">
+        <Link to="/add" className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-500 text-white text-sm font-semibold rounded-lg hover:bg-emerald-600 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-150">
           ➕ Add Expense
         </Link>
       </div>

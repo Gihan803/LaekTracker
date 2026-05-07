@@ -14,6 +14,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     { path: "/dashboard", label: "Dashboard", icon: "📊" },
     { path: "/add", label: "Add Expense", icon: "➕" },
     { path: "/expenses", label: "All Expenses", icon: "📋" },
+    { path: "/saved-months", label: "Saved Months", icon: "🗂️" },
     { path: "/profile", label: "Profile", icon: "👤" },
     { path: "/insights", label: "Insights", icon: "💡" },
   ];
