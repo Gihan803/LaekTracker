@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import expenseService from "../services/expenseService";
 
 const categories = [
-  "Food","Transport","Entertainment","Shopping",
-  "Bills","Health","Education","Subscriptions","Other",
+  "Food", "Transport", "Entertainment", "Shopping",
+  "Bills", "Health", "Education", "Subscriptions", "Other",
 ];
 
 const AddExpense = () => {
@@ -79,7 +79,7 @@ const AddExpense = () => {
           </div>
 
           <div className="flex gap-3">
-            <button type="submit" className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-emerald-500 text-white text-sm font-semibold rounded-lg hover:bg-emerald-600 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer" disabled={loading} id="add-expense-submit-btn">
+            <button type="submit" className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-emerald-500 text-white text-sm font-semibold rounded-lg hover:bg-emerald-600 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer" disabled={loading} id="add-expense-submit-btn">
               {loading ? (<><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>Adding...</>) : "Add Expense"}
             </button>
             <button type="button" className="px-6 py-3 border-2 border-slate-200 text-slate-500 text-sm font-semibold rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-all duration-150 cursor-pointer" onClick={() => navigate(-1)}>Cancel</button>

@@ -29,32 +29,34 @@ const ExpenseRow = ({ expense, onDelete, showDelete = true }) => {
   const badgeStyle = categoryBadgeStyles[expense.category] || categoryBadgeStyles.Other;
 
   return (
-    <div className="flex items-center justify-between px-4 py-3.5 border-b border-slate-100 last:border-b-0 hover:bg-slate-50 transition-colors duration-150 animate-fade-in group">
-      <div className="flex items-center gap-3.5 min-w-0 flex-1">
-        <div className="text-2xl w-10 h-10 flex items-center justify-center bg-slate-50 rounded-lg flex-shrink-0">
+    <div className="flex items-center justify-between px-3 sm:px-4 py-3 sm:py-3.5 border-b border-slate-100 last:border-b-0 hover:bg-slate-50 transition-colors duration-150 animate-fade-in group">
+      <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
+        <div className="text-xl sm:text-2xl w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-slate-50 rounded-lg flex-shrink-0">
           {icon}
         </div>
-        <div className="min-w-0">
-          <span className={`inline-flex items-center px-3 py-0.5 text-xs font-semibold rounded-full tracking-wide ${badgeStyle}`}>
+        <div className="min-w-0 flex-1">
+          <span className={`inline-flex items-center px-2 sm:px-3 py-0.5 text-[10px] sm:text-xs font-semibold rounded-full tracking-wide ${badgeStyle}`}>
             {expense.category}
           </span>
           {expense.note && (
-            <p className="text-xs text-slate-400 truncate max-w-[250px] mt-0.5">
+            <p className="text-[10px] sm:text-xs text-slate-400 truncate max-w-full sm:max-w-[250px] mt-0.5">
               {expense.note}
             </p>
           )}
         </div>
       </div>
-      <div className="flex items-center gap-4 flex-shrink-0">
-        <span className="text-base font-bold text-red-500 whitespace-nowrap">
-          -{formatCurrency(expense.amount)}
-        </span>
-        <span className="text-xs text-slate-400 whitespace-nowrap min-w-[80px] text-right">
-          {formatDate(expense.date)}
-        </span>
+      <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0 pl-2">
+        <div className="flex flex-col items-end">
+          <span className="text-sm sm:text-base font-bold text-red-500 whitespace-nowrap">
+            -{formatCurrency(expense.amount)}
+          </span>
+          <span className="text-[10px] sm:text-xs text-slate-400 whitespace-nowrap">
+            {formatDate(expense.date)}
+          </span>
+        </div>
         {showDelete && (
           <button
-            className="w-8 h-8 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 hover:bg-red-50 transition-all duration-150 cursor-pointer"
+            className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 hover:bg-red-50 transition-all duration-150 cursor-pointer flex-shrink-0"
             onClick={() => onDelete(expense._id)}
             title="Delete expense"
             aria-label="Delete expense"
