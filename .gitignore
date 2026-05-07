@@ -2,7 +2,6 @@
 node_modules/
 
 # Environment variables
-.env
 
 # Build output
 dist/
@@ -23,3 +22,4 @@ Thumbs.db
 
 # Temp files
 __temp/
+config.bat

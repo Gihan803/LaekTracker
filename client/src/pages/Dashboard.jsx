@@ -3,14 +3,19 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import expenseService from "../services/expenseService";
 import { calculateBudget, formatCurrency } from "../utils/budgetCalculator";
+import { detectLeaks } from "../utils/detectLeaks";
+import monthService from "../services/monthService";
 import StatCard from "../components/StatCard";
 import ExpenseRow from "../components/ExpenseRow";
 import BudgetWarning from "../components/BudgetWarning";
+import CloseMonthModal from "../components/CloseMonthModal";
 
 const Dashboard = () => {
   const { user } = useAuth();
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
 
   useEffect(() => {
     fetchExpenses();
@@ -37,6 +42,21 @@ const Dashboard = () => {
     }
   };
 
+  const handleCloseMonth = async () => {
+    setClosing(true);
+    try {
+      const leaks = detectLeaks(expenses);
+      await monthService.closeMonth({ leaks });
+      setExpenses([]);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Failed to close month:", error);
+      alert("Failed to close month. Please try again.");
+    } finally {
+      setClosing(false);
+    }
+  };
+
   const budget = calculateBudget(user?.monthlyIncome || 0, expenses);
   const recentExpenses = expenses.slice(0, 5);
 
@@ -59,13 +79,22 @@ const Dashboard = () => {
             Your financial overview at a glance
           </p>
         </div>
-        <Link
-          to="/add"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-500 text-white text-sm font-semibold rounded-lg hover:bg-emerald-600 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-150"
-          id="add-expense-btn"
-        >
-          ➕ Add Expense
-        </Link>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            disabled={expenses.length === 0}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-800 text-white text-sm font-semibold rounded-lg hover:bg-slate-900 transition-all duration-150 disabled:opacity-50 disabled:hover:translate-y-0"
+          >
+            🗂️ Close Month
+          </button>
+          <Link
+            to="/add"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-500 text-white text-sm font-semibold rounded-lg hover:bg-emerald-600 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-150"
+            id="add-expense-btn"
+          >
+            ➕ Add Expense
+          </Link>
+        </div>
       </div>
 
       {/* Budget Warning */}
@@ -109,15 +138,15 @@ const Dashboard = () => {
             budget.remaining < 0
               ? "Over budget!"
               : user?.monthlyIncome
-              ? "Left to spend"
-              : "Set income first"
+                ? "Left to spend"
+                : "Set income first"
           }
           variant={
             budget.remaining < 0
               ? "danger"
               : budget.status === "warning"
-              ? "warning"
-              : "info"
+                ? "warning"
+                : "info"
           }
           delay={200}
         />
@@ -134,16 +163,16 @@ const Dashboard = () => {
               ? budget.status === "danger"
                 ? "Critical level"
                 : budget.status === "warning"
-                ? "Getting high"
-                : "Healthy"
+                  ? "Getting high"
+                  : "Healthy"
               : "Set income first"
           }
           variant={
             budget.status === "danger"
               ? "danger"
               : budget.status === "warning"
-              ? "warning"
-              : "primary"
+                ? "warning"
+                : "primary"
           }
           delay={300}
         />
@@ -193,6 +222,13 @@ const Dashboard = () => {
           </div>
         )}
       </div>
+
+      <CloseMonthModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleCloseMonth}
+        loading={closing}
+      />
     </div>
   );
 };

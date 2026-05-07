@@ -64,11 +64,10 @@ const Profile = () => {
 
         {message.text && (
           <div
-            className={`flex items-center gap-2.5 p-3.5 rounded-lg border text-sm font-medium mb-5 animate-slide-down ${
-              message.type === "success"
+            className={`flex items-center gap-2.5 p-3.5 rounded-lg border text-sm font-medium mb-5 animate-slide-down ${message.type === "success"
                 ? "bg-emerald-50 border-emerald-200 text-emerald-700"
                 : "bg-red-50 border-red-200 text-red-700"
-            }`}
+              }`}
           >
             {message.type === "success" ? "✅" : "⚠️"} {message.text}
           </div>
@@ -99,7 +98,7 @@ const Profile = () => {
 
           <button
             type="submit"
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-emerald-500 text-white text-sm font-semibold rounded-lg hover:bg-emerald-600 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/30 active:translate-y-0 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-emerald-500 text-white text-sm font-semibold rounded-lg hover:bg-emerald-600 hover:shadow-lg hover:shadow-emerald-500/30 active:translate-y-0 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
             disabled={loading}
           >
             {loading ? (
